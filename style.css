@@ -1,0 +1,35 @@
+#messages{
+
+border: 1px solid black;
+height: 85vh;
+ 
+
+}
+#messages:nth-child(odd){
+    background-color: cornflowerblue;
+}
+form{
+
+    display: flex;
+
+}
+
+#name{
+
+    flex: 1;
+    padding: 10px;
+}
+#m{
+    flex: 5;
+    padding: 10px;
+}
+#btn{
+
+    flex: 1;
+    padding: 10px;
+}
+#btn{
+
+
+    background-color:greenyellow;
+}

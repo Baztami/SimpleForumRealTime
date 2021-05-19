@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chat app realtime socket.io</title>
+  <style>
+    #messages{
+
+border: 1px solid black;
+height: 85vh;
+ 
+
+}
+#messages:nth-child(odd){
+    background-color: cornflowerblue;
+}
+form{
+
+    display: flex;
+
+}
+
+#name{
+
+    flex: 1;
+    padding: 10px;
+}
+#m{
+    flex: 5;
+    padding: 10px;
+}
+#btn{
+
+    flex: 1;
+    padding: 10px;
+}
+#btn{
+
+
+    background-color:greenyellow;
+}
+</style>
+</head>
+<body>
+        <div id="messages"></div>
+         
+        <form>
+
+            <input type="text" id="name" placeholder="entrez votre nom ">
+            <input type="text" id="m" placeholder="enter votre message">
+            <input type="submit" id="btn" value="envoyer" >
+
+
+
+         </form>
+         <script src="/socket.io/socket.io.js"></script>
+         <script>
+            //on se connecte au serveur socket.io
+
+            const socket=io();
+         
+         window.onload=() =>{
+
+            //on ecoute l'évenement submit 
+            document.querySelector("form").addEventListener('submit', (e)=>{
+            //on empeche l'envoie du formulaire    
+                e.preventDefault();
+                const name=document.querySelector('#name');
+                const message=document.querySelector('#m');
+                // on envoie le message 
+                socket.emit("chat_message",{name : name.value ,message : message.value});
+                    //on efface le message 
+                    document.querySelector("#messages").innerHTML+="";
+
+            })
+
+            // on ecoute l'evenement "chat_message" 
+            socket.on("received_message",(msg) =>{
+
+               document.querySelector("#messages").innerHTML+=`<p> ${msg.name} dit : ${msg.message} </p>`;
+
+
+            });
+         }
+         
+         </script>
+</body>
+</html>
